@@ -1,23 +1,26 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.Console;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class GoogleImageDownloader {
+    String destinationDir;
 
-    static final String googleImages = "https://www.google.ru/imghp?hl=en&ogbl";
+    int imageId = 0;
+
+    final String googleImages = "https://www.google.ru/imghp?hl=en&ogbl";
 
     /**
      * Максимальное возможное количество получаемых картинок.
      */
-    static final Integer MAX_IMAGES_AMOUNT = 1000;
+    final Integer MAX_IMAGES_AMOUNT = 1000;
 
     /**
      * Получение списка картинок для скачивания.
@@ -25,7 +28,7 @@ public class GoogleImageDownloader {
      * @param imagesCount количество желаемых картинок.
      * @return
      */
-    static public ArrayList<String> getImagesUrl(String searchingWord, Integer imagesCount) {
+    public ArrayList<String> getImagesUrl(String searchingWord, Integer imagesCount) {
         WebDriverManager.chromedriver().setup();
 
         var driver = new ChromeDriver();
@@ -37,6 +40,8 @@ public class GoogleImageDownloader {
         var inputELement = driver.findElement(By.tagName("input"));
 
         inputELement.sendKeys(searchingWord);
+
+        //inputELement.sendKeys(Keys.ENTER);
 
         var searchButton = driver.findElement(By.className("Tg7LZd"));
 
@@ -69,22 +74,57 @@ public class GoogleImageDownloader {
                 var bigImg = new WebDriverWait(driver, Duration.ofSeconds(5))
                         .until(temp -> driver.findElement(By.id("Sva75c")));
 
-                var gettingImgUrlThread = new Thread(()-> {
-                    var src = new WebDriverWait(driver, Duration.ofSeconds(10))
-                            .until(temp -> bigImg.findElement(By.cssSelector("img[jsname='HiaYvf']"))).getAttribute("src");
+                WebElement srcElem = null;
 
-                    imagesLinks.add(src);
-                });
+                srcElem = new WebDriverWait(driver, Duration.ofSeconds(5))
+                        .until(temp -> bigImg.findElement(By.cssSelector("img[class='n3VNCb KAlRDb']")));
 
-                gettingImgUrlThread.start();
-
-                gettingImgUrlThread.join();
+                imagesLinks.add(srcElem.getAttribute("src"));
             }
             catch (Exception ex) {
             }
         }
 
         return imagesLinks;
+    }
+
+    public void saveImagesInFile(String searchingWord, Integer imagesCount, String sourceFile) {
+        AtomicReference<ArrayList<String>> links = new AtomicReference<>();
+
+        var gettingUrlsThread = new Thread(() -> {
+            links.set(getImagesUrl(searchingWord, imagesCount));
+        }, "gettingUrlsThread");
+
+        gettingUrlsThread.start();
+
+        try {
+            gettingUrlsThread.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        var urls = links.get();
+        var imageLoader = new ImageLoader(sourceFile);
+
+        for (var url: urls) {
+            var savingInFileThread = new Thread(() -> {
+
+                try {
+                    imageLoader.saveImage(url);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
+            }, "savingInFileThread");
+
+            savingInFileThread.start();
+
+            try {
+                savingInFileThread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     /**

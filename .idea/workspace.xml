@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="af4bc86e-7607-4f36-82ac-fbadec380679" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GoogleImageDownloader.java" afterDir="false" />
+    <list default="true" id="af4bc86e-7607-4f36-82ac-fbadec380679" name="Changes" comment="Добавлено получение url картинок для скачивания по запросу .">
+      <change afterPath="$PROJECT_DIR$/src/main/java/ImageLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GoogleImageDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GoogleImageDownloader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,14 +33,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/3 курс/Firstpart/java/Vyatsu.Fib.Ovchinnikov.ImageDownloader&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
@@ -63,7 +60,19 @@
       <option name="presentableId" value="Default" />
       <updated>1668499899374</updated>
       <workItem from="1668499900615" duration="7621000" />
+      <workItem from="1668527141589" duration="6454000" />
+      <workItem from="1668578962377" duration="2473000" />
+      <workItem from="1668612128121" duration="977000" />
+      <workItem from="1668940595888" duration="767000" />
     </task>
+    <task id="LOCAL-00001" summary="Добавлено получение url картинок для скачивания по запросу .">
+      <created>1668527229549</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1668527229549</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -79,5 +88,26 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Добавлено получение url картинок для скачивания по запросу ." />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлено получение url картинок для скачивания по запросу ." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="imageUrl.equals(&quot;https://giknutye.ru/wp-content/uploads/2022/04/pokemon-0.webp&quot;)" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/ImageLoader.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="iter" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
